@@ -4,11 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Loja;
+use App\Produto;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LojaController extends Controller
 {
+
+    private $loja;
+
+    public function __construct(Loja $loja)
+    {
+        $this->loja = $loja;
+    }
+
     public function index(Request $request)
     {
         $lojas = Loja::paginate(10);
@@ -34,7 +44,9 @@ class LojaController extends Controller
             'celular'=> $request->celular,
             'slug' => $request->slug
         ]);
-        return $loja;
+
+        $request->session()->flash('mensagem', 'A loja foi cadastrada com sucesso');
+        return redirect()->route('lojas.index');
     }
 
     public function edit($lojaID)
@@ -44,9 +56,10 @@ class LojaController extends Controller
         return view('admin.lojas.edit', compact('loja'));
     }
 
-    public function update(Request $request, $lojaID)
+    public function update(Request $request, $id)
     {
-        $loja = Loja::find($lojaID);
+        $loja = $this->loja->find($id);
+
         $loja->update([
             'nome' => $request->nomeLoja,
             'descricao'=> $request->descricao,
@@ -56,17 +69,22 @@ class LojaController extends Controller
         ]);
 
         $request->session()->flash('mensagem', 'Os dados da loja foram atualizados com sucesso');
-        return redirect('/admin/lojas');
+        return redirect()->route('lojas.index');
     }
 
     public function destroy($lojaID, Request $request)
     {
         $loja = Loja::find($lojaID);
+        $produto = Produto::where('loja_id', $lojaID)->get();
+
+        foreach ($produto as $prod){
+            $prod->delete();
+        }
 
         $loja->delete();
 
         $request->session()->flash('mensagem', 'A loja foi removida com sucesso');
 
-        return redirect('/admin/lojas');
+        return redirect()->route('lojas.index');
     }
 }

@@ -1,12 +1,13 @@
 @extends('layout.admin-layout')
 @section('conteudo')
-    <a href="{{route('admin.produto.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Criar Produto</a>
-
+    <a href="{{route('produto.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Criar Produto</a>
+    @include('layout.mensagem')
     <table class="table">
         <thead>
             <th>ID</th>
             <th>NOME</th>
             <th>PRECO</th>
+            <th>Loja</th>
             <th>AÇÕES</th>
         </thead>
         <tbody>
@@ -14,8 +15,18 @@
             <tr>
                 <td>{{$produto->id}}</td>
                 <td>{{$produto->nome}}</td>
-                <td>{{$produto->preco}}</td>
-                <td><a href="/admin/{{$produto->id}}/edit" class="btn btn-sm btn-warning mr-2"><i class="fas fa-edit"></i></a> <a href="/admin/destroy/{{$produto->id}}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a></td>
+                <td>R$ {{$produto->preco}}</td>
+                <td>{{$produto->loja->nome}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="/admin/produto/{{$produto->id}}/edit" class="btn btn-sm btn-warning mr-2"><i class="fas fa-edit"></i></a>
+                        <form action="{{route('produto.destroy', ['produto' => $produto->id])}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </div>
+                </td>
             </tr>
         @endforeach
         </tbody>

@@ -1,8 +1,9 @@
 @extends('layout.admin-layout')
 
 @section('conteudo')
-    <h1>Criar Produto</h1>
-    <form method="POST">
+    <h1>Atualizar Produto</h1>
+    <form method="POST" action="{{route('produto.update',['produto' => $produto->id])}}">
+        @method('PUT')
         @csrf
         <div class="form-group">
             <label>Nome do produto</label>
@@ -11,7 +12,7 @@
 
         <div class="form-group">
             <label>Conteudo</label>
-            <textarea class="form-control" value="{{$produto->body}}" name="body" id="" cols="30" rols="10"></textarea>
+            <textarea class="form-control" name="body" id="" cols="30" rols="10">{{$produto->body}}</textarea>
         </div>
 
         <div class="form-group">
@@ -30,10 +31,10 @@
         </div>
 
         <div class="form-group">
-            <label>Usuario</label>
-            <select name="user" class="form-control">
-                @foreach($users as $user)
-                    <option value="{{$user->id}}">{{$user->name}}</option>
+            <label>Loja</label>
+            <select name="loja" class="form-control">
+                @foreach($lojas as $loja)
+                    <option value="{{$loja->id}}">{{$loja->nome}}</option>
                 @endforeach
             </select>
         </div>

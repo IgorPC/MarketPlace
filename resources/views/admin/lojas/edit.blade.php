@@ -1,8 +1,9 @@
 @extends('layout.admin-layout')
 
 @section('conteudo')
-    <h1>Cadastrar loja</h1>
-    <form method="POST">
+    <h1>Atualizar loja</h1>
+    <form method="POST" action="{{route('lojas.update',['loja' => $loja->id])}}">
+        @method('PUT')
         @csrf
         <div class="form-group">
             <label>Nome da Loja</label>
