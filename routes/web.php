@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Admin\\LojaController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::prefix('/admin')->namespace('Admin')->group(function (){
+Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function (){
 
     Route::resource('lojas', 'LojaController');
 
     Route::resource('produto', 'ProdutoController');
 });
 
+Auth::routes();
 

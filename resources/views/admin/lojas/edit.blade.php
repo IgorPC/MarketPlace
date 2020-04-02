@@ -1,4 +1,8 @@
-@extends('layout.admin-layout')
+@extends('layouts.admin-layout')
+
+@section('titulo')
+    Ataulizar Loja
+@endsection
 
 @section('conteudo')
     <h1>Atualizar loja</h1>

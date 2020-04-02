@@ -1,7 +1,11 @@
-@extends('layout.admin-layout')
+@extends('layouts.admin-layout')
+
+@section('titulo')
+    Cadastrar Produto
+@endsection
 
 @section('conteudo')
-    <h1>Criar Produto</h1>
+    <h1>Cadastrar Produto</h1>
     <form method="POST" action="{{route('produto.store')}}">
         @csrf
         <div class="form-group">

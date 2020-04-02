@@ -1,9 +1,13 @@
-@extends('layout.admin-layout')
+@extends('layouts.admin-layout')
+
+@section('titulo')
+    Lojas
+@endsection
 
 @section('conteudo')
-    <a href="{{route('lojas.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Criar Loja</a>
+    <a href="{{route('lojas.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Loja</a>
 
-    @include('layout.mensagem')
+    @include('layouts.mensagem')
 
     <table class="table">
         <thead>

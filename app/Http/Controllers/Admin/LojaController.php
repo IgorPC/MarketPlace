@@ -36,8 +36,8 @@ class LojaController extends Controller
 
     public function store(Request $request)
     {
-        $user = User::find($request->user);
-        $loja = $user->loja()->create([
+        $user = auth()->user();
+        $user->loja()->create([
             'nome' => $request->nomeLoja,
             'descricao'=> $request->descricao,
             'telefone'=> $request->telefone,
@@ -75,6 +75,7 @@ class LojaController extends Controller
     public function destroy($lojaID, Request $request)
     {
         $loja = Loja::find($lojaID);
+
         $produto = Produto::where('loja_id', $lojaID)->get();
 
         foreach ($produto as $prod){

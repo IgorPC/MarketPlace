@@ -1,8 +1,12 @@
-@extends('layout.admin-layout')
+@extends('layouts.admin-layout')
+
+@section('titulo')
+    Cadastrar Loja
+@endsection
 
 @section('conteudo')
 <h1>Cadastrar loja</h1>
-<form method="POST">
+<form method="POST" action="{{route('lojas.store')}}">
     @csrf
     <div class="form-group">
         <label>Nome da Loja</label>
@@ -29,14 +33,6 @@
         <input class="form-control" type="text" name="slug">
     </div>
 
-    <div class="form-group">
-        <label>Usuario</label>
-        <select name="user" class="form-control">
-            @foreach($users as $user)
-            <option value="{{$user->id}}">{{$user->name}}</option>
-            @endforeach
-        </select>
-    </div>
     <div>
         <button type="submit" class="btn btn-lg btn-success">Salvar</button>
     </div>

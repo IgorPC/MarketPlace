@@ -116,6 +116,7 @@
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ZZtg09LUNY7ZnVcUt46P46xNVX" />
@@ -132,6 +133,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Igor\Desktop\Projetos\marketplace_l6\resources\views\layouts" />
       <recent name="C:\Users\Igor\Desktop\Projetos\marketplace_l6\app\Http\Controllers\Admin" />
       <recent name="C:\Users\Igor\Desktop\Projetos\marketplace_l6\database\migrations" />
       <recent name="C:\Users\Igor\Desktop\Projetos\marketplace_l6\app" />
@@ -175,6 +177,9 @@
       <workItem from="1585590377734" duration="3994000" />
       <workItem from="1585672658921" duration="3624000" />
       <workItem from="1585759454267" duration="2434000" />
+      <workItem from="1585766356349" duration="246000" />
+      <workItem from="1585774457407" duration="861000" />
+      <workItem from="1585851886858" duration="14166000" />
     </task>
     <servers />
   </component>
@@ -202,10 +207,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="179" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1585062853878" />
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1585331903441">
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1585861938100">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1585331903441" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1585861938100" />
     <state x="339" y="17" width="670" height="676" key="search.everywhere.popup" timestamp="1585328667350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
