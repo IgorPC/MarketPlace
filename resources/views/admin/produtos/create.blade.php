@@ -10,22 +10,42 @@
         @csrf
         <div class="form-group">
             <label>Nome do produto</label>
-            <input class="form-control" type="text" name="nomeProduto">
+            <input class="form-control @error('nomeProduto') is-invalid @enderror" type="text" name="nomeProduto" value="{{old('nomeProduto')}}">
+            @error('nomeProduto')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Conteudo</label>
-            <textarea class="form-control" name="body" id="" cols="30" rols="10"></textarea>
+            <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="" cols="30" rols="10">{{old('body')}}</textarea>
+            @error('body')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Descrição</label>
-            <input class="form-control" type="text" name="descricao">
+            <input class="form-control @error('descricao') is-invalid @enderror" type="text" name="descricao" value="{{old('descricao')}}">
+            @error('descricao')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Preço</label>
-            <input class="form-control" type="text" name="preco">
+            <input class="form-control @error('preco') is-invalid @enderror" type="text" name="preco" value="{{old('preco')}}">
+            @error('preco')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -33,14 +53,6 @@
             <input class="form-control" type="text" name="slug">
         </div>
 
-        <div class="form-group">
-            <label>Loja</label>
-            <select name="loja" class="form-control">
-                @foreach($lojas as $loja)
-                    <option value="{{$loja->id}}">{{$loja->nome}}</option>
-                @endforeach
-            </select>
-        </div>
         <div>
             <button type="submit" class="btn btn-lg btn-success">Criar Produto</button>
         </div>

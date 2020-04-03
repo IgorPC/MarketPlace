@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LojaRequest;
 use App\Loja;
 use App\Produto;
 use App\User;
@@ -16,25 +17,26 @@ class LojaController extends Controller
 
     public function __construct(Loja $loja)
     {
+        $this->middleware('UsuarioTemLoja')->only(['create', 'store']);
         $this->loja = $loja;
     }
 
     public function index(Request $request)
     {
-        $lojas = Loja::paginate(10);
+        $loja = auth()->user()->loja()->get();
+        $numLoja = auth()->user()->loja()->count();
         $mensagem = $request->session()->get('mensagem');
 
-        return view('admin.lojas.index', compact('lojas', 'mensagem'));
+        return view('admin.lojas.index', compact('loja', 'numLoja', 'mensagem'));
     }
 
     public function create()
     {
         $users = User::all();
-
         return view('admin.lojas.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(LojaRequest $request)
     {
         $user = auth()->user();
         $user->loja()->create([
@@ -56,7 +58,7 @@ class LojaController extends Controller
         return view('admin.lojas.edit', compact('loja'));
     }
 
-    public function update(Request $request, $id)
+    public function update(LojaRequest $request, $id)
     {
         $loja = $this->loja->find($id);
 

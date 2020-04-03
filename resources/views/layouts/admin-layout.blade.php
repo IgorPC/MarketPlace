@@ -12,27 +12,53 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MarketPlace</a>
+        <a class="navbar-brand" href="#"><strong>MarketPlace</strong></a>
         @auth()
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item @if(request()->is('admin/lojas')) active @endif">
-                    <a class="nav-link" href="{{route('lojas.index')}}">Lojas <span class="sr-only">(current)</span></a>
+                <li class="nav-item @if(request()->is('admin/lojas*')) active @endif">
+                    <a class="nav-link" href="{{route('lojas.index')}}"><strong>Lojas</strong><span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(request()->is('admin/produto')) active @endif" href="{{route('produto.index')}}">Produtos</a>
+                    <a class="nav-link @if(request()->is('admin/produto*')) active @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <span class="mr-4"><i class="fas fa-user mr-1"></i> {{auth()->user()->name}}</span>
+                <span class="mr-4">
+                    <button type="button" class="btn btn-warning" id="teste" data-toggle="modal" data-target="#exampleModal">
+                      <i class="fas fa-user mr-1"></i> <strong>{{auth()->user()->name}}</strong>
+                    </button>
+                 </span>
+                <!-- MODAL DADOS DO USUARIO -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Dados do Usuario</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Nome: {{auth()->user()->name}}</p>
+                                <p>Email: {{auth()->user()->email}}</p>
+                                <label>Dados da loja:</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-primary">Salvar Alterações</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM MODAL DADOS DO USUARIO -->
                 <form method="POST" action="{{route('logout')}}">
                     @csrf
-                    <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">Sair</button>
+                    <button type="submit" class="btn btn-outline-danger my-2 my-sm-0"><strong>Sair</strong></button>
                 </form>
             </div>
             @endauth

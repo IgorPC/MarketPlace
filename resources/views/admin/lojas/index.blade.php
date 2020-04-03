@@ -5,25 +5,28 @@
 @endsection
 
 @section('conteudo')
-    <a href="{{route('lojas.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Loja</a>
-
+    @if($numLoja != 1)
+        <a href="{{route('lojas.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Loja</a>
+    @endif
     @include('layouts.mensagem')
 
     <table class="table">
         <thead>
             <th>ID</th>
             <th>LOJA</th>
+            <th>Total de produtos</th>
             <th>Ações</th>
         </thead>
         <tbody>
-        @foreach($lojas as $loja)
+        @foreach($loja as $store)
             <tr>
-                <td>{{$loja->id}}</td>
-                <td>{{$loja->nome}}</td>
+                <td>{{$store->id}}</td>
+                <td>{{$store->nome}}</td>
+                <td>{{$store->produtos->count()}}</td>
                 <td>
                     <div class="btn-group">
-                        <a href="{{route('lojas.edit', ['loja' => $loja->id])}}" class="btn btn-sm btn-warning mr-2"><i class="fas fa-edit"></i></a>
-                        <form action="{{route('lojas.destroy', ['loja' => $loja->id])}}" method="POST">
+                        <a href="{{route('lojas.edit', ['loja' => $store->id])}}" class="btn btn-sm btn-warning mr-2"><i class="fas fa-edit"></i></a>
+                        <form action="{{route('lojas.destroy', ['loja' => $store->id])}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
@@ -37,7 +40,5 @@
             <tb></tb>
         </tbody>
     </table>
-
-    {{$lojas->links()}}
 @endsection
 

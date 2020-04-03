@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ProdutoRequest;
 use App\Loja;
 use App\Produto;
 use App\User;
@@ -28,15 +29,15 @@ class ProdutoController extends Controller
 
     public function create()
     {
-        $lojas = Loja::all(['id', 'nome']);
         $lojas = Loja::all();
-        return view('admin.produtos.create', compact('lojas', 'lojas'));
+        return view('admin.produtos.create', compact('lojas'));
     }
 
-    public function store(Request $request)
+    public function store(ProdutoRequest $request)
     {
-        $loja = Loja::find($request->loja);
-        $produto = $loja->produtos()->create([
+        $loja = auth()->user()->loja;
+
+        $loja->produtos()->create([
             'nome' => $request->nomeProduto,
             'descricao' => $request->body,
             'body' => $request->descricao,
@@ -61,7 +62,7 @@ class ProdutoController extends Controller
         return view('admin.produtos.edit', compact('produto', 'lojas'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ProdutoRequest $request, $id)
     {
         $produto = $this->produto->find($id);
 
