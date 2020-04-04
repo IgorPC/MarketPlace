@@ -6,7 +6,7 @@
 
 @section('conteudo')
     <h1>Cadastrar Produto</h1>
-    <form method="POST" action="{{route('produto.store')}}">
+    <form method="POST" action="{{route('produto.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>Nome do produto</label>
@@ -51,6 +51,20 @@
         <div class="form-group">
             <label>Slug</label>
             <input class="form-control" type="text" name="slug">
+        </div>
+
+        <div class="form-group">
+            <label>Categorias: </label>
+            <select name="categorias[]" class="form-control" multiple>
+                @foreach($categorias as $categoria)
+                    <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Fotos do produto</label>
+            <input type="file" name="fotos[]" multiple class="form-control">
         </div>
 
         <div>

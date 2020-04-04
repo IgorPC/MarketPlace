@@ -22,6 +22,8 @@ Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function 
     Route::resource('lojas', 'LojaController');
 
     Route::resource('produto', 'ProdutoController');
+
+    Route::resource('categorias', 'CategoriaController');
 });
 
 Auth::routes();

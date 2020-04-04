@@ -55,13 +55,14 @@
         </div>
 
         <div class="form-group">
-            <label>Loja</label>
-            <select name="loja" class="form-control">
-                @foreach($lojas as $loja)
-                    <option value="{{$loja->id}}">{{$loja->nome}}</option>
+            <label>Categorias: </label>
+            <select name="categorias[]" class="form-control" multiple>
+                @foreach($categorias as $categoria)
+                    <option value="{{$categoria->id}}" @if($produto->categoria->contains($categoria)) selected @endif>{{$categoria->nome}}</option>
                 @endforeach
             </select>
         </div>
+
         <div>
             <button type="submit" class="btn btn-lg btn-primary mb-4">Atualizar Produto</button>
         </div>

@@ -25,9 +25,13 @@ class LojaController extends Controller
     {
         $loja = auth()->user()->loja()->get();
         $numLoja = auth()->user()->loja()->count();
-        $mensagem = $request->session()->get('mensagem');
 
-        return view('admin.lojas.index', compact('loja', 'numLoja', 'mensagem'));
+        //Mensagens de aviso personalizadas
+        $mensagemVerde = $request->session()->get('mensagemVerde');
+        $mensagemVermelha = $request->session()->get('mensagemVermelha');
+        $mensagemAmarela = $request->session()->get('mensagemAmarela');
+
+        return view('admin.lojas.index', compact('loja', 'numLoja', 'mensagemVermelha', 'mensagemAmarela', 'mensagemVerde'));
     }
 
     public function create()
@@ -47,7 +51,7 @@ class LojaController extends Controller
             'slug' => $request->slug
         ]);
 
-        $request->session()->flash('mensagem', 'A loja foi cadastrada com sucesso');
+        $request->session()->flash('mensagemVerde', 'A loja foi cadastrada com sucesso');
         return redirect()->route('lojas.index');
     }
 
@@ -70,7 +74,7 @@ class LojaController extends Controller
             'slug' => $request->slug
         ]);
 
-        $request->session()->flash('mensagem', 'Os dados da loja foram atualizados com sucesso');
+        $request->session()->flash('mensagemAmarela', 'Os dados da loja foram atualizados com sucesso');
         return redirect()->route('lojas.index');
     }
 
@@ -86,7 +90,7 @@ class LojaController extends Controller
 
         $loja->delete();
 
-        $request->session()->flash('mensagem', 'A loja foi removida com sucesso');
+        $request->session()->flash('mensagemVermelha', 'A loja foi removida com sucesso');
 
         return redirect()->route('lojas.index');
     }

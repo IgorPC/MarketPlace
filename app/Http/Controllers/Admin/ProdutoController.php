@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Categoria;
 use App\Http\Requests\ProdutoRequest;
 use App\Loja;
 use App\Produto;
@@ -21,23 +22,28 @@ class ProdutoController extends Controller
 
     public function index(Request $request)
     {
-        $produtos = $this->produto->paginate(8);
-        $mensagem = $request->session()->get('mensagem');
+        $userLoja = auth()->user()->loja;
+        $produtos = $userLoja->produtos()->paginate(8);
 
-        return view('admin.produtos.index', compact('produtos', 'mensagem'));
+        //Mensagens de aviso personalizadas
+        $mensagemVerde = $request->session()->get('mensagemVerde');
+        $mensagemVermelha = $request->session()->get('mensagemVermelha');
+        $mensagemAmarela = $request->session()->get('mensagemAmarela');
+
+        return view('admin.produtos.index', compact('produtos', 'mensagemVerde', 'mensagemVermelha', 'mensagemAmarela'));
     }
 
     public function create()
     {
-        $lojas = Loja::all();
-        return view('admin.produtos.create', compact('lojas'));
+        $categorias = Categoria::all(['id', 'nome']);
+        return view('admin.produtos.create', compact('categorias'));
     }
 
     public function store(ProdutoRequest $request)
     {
         $loja = auth()->user()->loja;
 
-        $loja->produtos()->create([
+        $produto = $loja->produtos()->create([
             'nome' => $request->nomeProduto,
             'descricao' => $request->body,
             'body' => $request->descricao,
@@ -45,7 +51,9 @@ class ProdutoController extends Controller
             'slug' => $request->slug
         ]);
 
-        $request->session()->flash('mensagem', 'O produto foi cadastrado com sucesso');
+        $produto->categoria()->sync($request->categorias);
+
+        $request->session()->flash('mensagemVerde', 'O produto foi cadastrado com sucesso');
         return redirect()->route('produto.index');
     }
 
@@ -57,9 +65,9 @@ class ProdutoController extends Controller
     public function edit($id)
     {
         $produto = $this->produto->findOrFail($id);
-        $lojas = Loja::all();
+        $categorias = Categoria::all(['id', 'nome']);
 
-        return view('admin.produtos.edit', compact('produto', 'lojas'));
+        return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
 
     public function update(ProdutoRequest $request, $id)
@@ -74,7 +82,9 @@ class ProdutoController extends Controller
             'slug' => $request->slug
         ]);
 
-        $request->session()->flash('mensagem', 'O produto foi atualizado com sucesso');
+        $produto->categoria()->sync($request->categorias);
+
+        $request->session()->flash('mensagemAmarela', 'O produto foi atualizado com sucesso');
         return redirect()->route('produto.index');
     }
 
@@ -84,7 +94,7 @@ class ProdutoController extends Controller
 
         $produto->delete();
 
-        $request->session()->flash('mensagem', 'O produto foi removido com sucesso');
+        $request->session()->flash('mensagemVermelha', 'O produto foi removido com sucesso');
         return redirect()->route('produto.index');
     }
 }
