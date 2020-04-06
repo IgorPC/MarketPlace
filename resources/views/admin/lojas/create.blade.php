@@ -6,12 +6,12 @@
 
 @section('conteudo')
 <h1>Cadastrar loja</h1>
-<form method="POST" action="{{route('lojas.store')}}">
+<form method="POST" action="{{route('lojas.store')}}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label>Nome da Loja</label>
-        <input class="form-control @error('nomeLoja') is-invalid @enderror" type="text" name="nomeLoja" value="{{old('nomeLoja')}}">
-        @error('nomeLoja')
+        <input class="form-control @error('nome') is-invalid @enderror" type="text" name="nome" value="{{old('nome')}}">
+        @error('nome')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -39,9 +39,9 @@
     </div>
 
     <div class="form-group">
-        <label>Telefone</label>
-        <input class="form-control @error('telefone') is-invalid @enderror" type="text" name="telefone" value="{{old('telefone')}}">
-        @error('telefone')
+        <label>Logo:</label>
+        <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+        @error('logo')
         <div class="invalid-feedback">
             {{$message}}
         </div>
@@ -49,8 +49,13 @@
     </div>
 
     <div class="form-group">
-        <label>Slug</label>
-        <input class="form-control" type="text" name="slug">
+        <label>Telefone</label>
+        <input class="form-control @error('telefone') is-invalid @enderror" type="text" name="telefone" value="{{old('telefone')}}">
+        @error('telefone')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
 
     <div>

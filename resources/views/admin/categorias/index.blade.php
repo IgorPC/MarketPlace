@@ -27,7 +27,8 @@
                 <td>
                     <div class="btn-group">
                         <a href="{{route('categorias.edit', ['categoria' => $categoria->id])}}" class="btn btn-sm btn-warning mr-2"><i class="fas fa-edit"></i></a>
-                        <form action="{{route('categorias.destroy', ['categoria' => $categoria->id])}}" method="POST">
+                        <form action="{{route('categorias.destroy', ['categoria' => $categoria->id])}}" method="POST"
+                              onsubmit="return confirm('Tem certeza que deseja excluir a categoria {{$categoria->nome}}?')">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>

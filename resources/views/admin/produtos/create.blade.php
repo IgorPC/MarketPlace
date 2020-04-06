@@ -10,8 +10,8 @@
         @csrf
         <div class="form-group">
             <label>Nome do produto</label>
-            <input class="form-control @error('nomeProduto') is-invalid @enderror" type="text" name="nomeProduto" value="{{old('nomeProduto')}}">
-            @error('nomeProduto')
+            <input class="form-control @error('nome') is-invalid @enderror" type="text" name="nome" value="{{old('nome')}}">
+            @error('nome')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -49,13 +49,8 @@
         </div>
 
         <div class="form-group">
-            <label>Slug</label>
-            <input class="form-control" type="text" name="slug">
-        </div>
-
-        <div class="form-group">
             <label>Categorias: </label>
-            <select name="categorias[]" class="form-control" multiple>
+            <select name="categorias[]" class="form-control" multiple required>
                 @foreach($categorias as $categoria)
                     <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
                 @endforeach
@@ -64,7 +59,12 @@
 
         <div class="form-group">
             <label>Fotos do produto</label>
-            <input type="file" name="fotos[]" multiple class="form-control">
+            <input type="file" name="fotos[]" multiple class="form-control @error('fotos.*') is-invalid @enderror">
+            @error('fotos.*')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div>

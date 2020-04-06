@@ -1,18 +1,18 @@
 @extends('layouts.admin-layout')
 
 @section('titulo')
-    Ataulizar Loja
+    Atualizar Loja
 @endsection
 
 @section('conteudo')
     <h1>Atualizar loja</h1>
-    <form method="POST" action="{{route('lojas.update',['loja' => $loja->id])}}">
+    <form method="POST" action="{{route('lojas.update',['loja' => $loja->id])}}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="form-group">
             <label>Nome da Loja</label>
-            <input class="form-control @error('nomeLoja') is-invalid @enderror" type="text" name="nomeLoja" value="{{$loja->nome}}">
-            @error('nomeLoja')
+            <input class="form-control @error('nome') is-invalid @enderror" type="text" name="nome" value="{{$loja->nome}}">
+            @error('nome')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -49,9 +49,21 @@
             @enderror
         </div>
 
+        <div class="col-5 text-center">
+            <div class="form-group">
+                <label>Logo: </label>
+                <img class="img-fluid" src="{{asset('storage/' . $loja->logo)}}">
+            </div>
+        </div>
+
         <div class="form-group">
-            <label>Slug</label>
-            <input class="form-control" type="text" name="slug" value="{{$loja->slug}}">
+            <label>Logo:</label>
+            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+            @error('logo')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div>

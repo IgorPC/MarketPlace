@@ -24,10 +24,11 @@ class LojaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nomeLoja' => 'required',
+            'nome' => 'required',
             'descricao' => 'required|min:10',
             'celular' => 'required',
-            'telefone' => 'required'
+            'telefone' => 'required',
+            'logo' => 'image'
         ];
     }
 
@@ -35,7 +36,8 @@ class LojaRequest extends FormRequest
     {
         return [
             'required' => 'Esse campo é obrigatorio',
-            'min' => 'Esse campo deve ter no minimo :min caracteres'
+            'min' => 'Esse campo deve ter no minimo :min caracteres',
+            'image' => 'O arquivo adicionado não é uma imagem valida'
         ];
     }
 }

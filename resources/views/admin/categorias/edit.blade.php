@@ -11,8 +11,8 @@
         @csrf
         <div class="form-group">
             <label>Nome da Categoria</label>
-            <input class="form-control @error('nomeLoja') is-invalid @enderror" value="{{$categoria->nome}}" type="text" name="nomeCategoria" value="{{old('nomeCategoria')}}">
-            @error('nomeCategoria')
+            <input class="form-control @error('nome') is-invalid @enderror" value="{{$categoria->nome}}" type="text" name="nome">
+            @error('nome')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -21,17 +21,12 @@
 
         <div class="form-group">
             <label>Descrição</label>
-            <input class="form-control @error('descricao') is-invalid @enderror" value="{{$categoria->descricao}}" type="text" name="descricao" value="{{old('descricao')}}">
+            <input class="form-control @error('descricao') is-invalid @enderror" value="{{$categoria->descricao}}" type="text" name="descricao">
             @error('descricao')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
             @enderror
-        </div>
-
-        <div class="form-group">
-            <label>Slug</label>
-            <input class="form-control" type="text" value="{{$categoria->slug}}" name="slug">
         </div>
 
         <div>

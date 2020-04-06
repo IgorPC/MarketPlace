@@ -25,7 +25,7 @@
                     <a class="nav-link" href="{{route('lojas.index')}}"><strong>Lojas</strong><span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(request()->is('admin/produto*')) active @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
+                    <a class="nav-link @if(request()->is('admin/produto*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @if(request()->is('admin/categorias*')) active @endif" href="{{route('categorias.index')}}"><strong>Categorias</strong></a>
@@ -48,11 +48,14 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Nome: {{auth()->user()->name}}</p>
-                                <p>Email: {{auth()->user()->email}}</p>
-                                <label>Dados da loja:</label>
+                                <p>Nome: <span id="mostrarUsuario"><strong>{{auth()->user()->name}}</strong></span></p>
+                                <p>Email: <strong>{{auth()->user()->email}}</strong></p>
+                                <p>Telefone/Celular: <strong></strong></p>
+                                <p>Endereço: <strong></strong></p>
+                                <p>CPF/CNPJ: <strong></strong></p>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-warning disabled"><i class="fas fa-pen"></i> Editar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="button" class="btn btn-primary">Salvar Alterações</button>
                             </div>

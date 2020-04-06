@@ -9,10 +9,12 @@ use App\Produto;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Storage;
+use Psy\Util\Str;
 
 class LojaController extends Controller
 {
-
     private $loja;
 
     public function __construct(Loja $loja)
@@ -43,13 +45,13 @@ class LojaController extends Controller
     public function store(LojaRequest $request)
     {
         $user = auth()->user();
-        $user->loja()->create([
-            'nome' => $request->nomeLoja,
-            'descricao'=> $request->descricao,
-            'telefone'=> $request->telefone,
-            'celular'=> $request->celular,
-            'slug' => $request->slug
-        ]);
+        $data = $request->all();
+
+        if($request->hasFile('logo')){
+            $data['logo'] = $this->uploadImagem($request, 'logo');
+        }
+
+        $user->loja()->create($data);
 
         $request->session()->flash('mensagemVerde', 'A loja foi cadastrada com sucesso');
         return redirect()->route('lojas.index');
@@ -66,13 +68,16 @@ class LojaController extends Controller
     {
         $loja = $this->loja->find($id);
 
-        $loja->update([
-            'nome' => $request->nomeLoja,
-            'descricao'=> $request->descricao,
-            'telefone'=> $request->telefone,
-            'celular'=> $request->celular,
-            'slug' => $request->slug
-        ]);
+        $data = $request->all();
+
+        if($request->hasFile('logo')){
+            if(Storage::disk('public')->exists($loja->logo)){
+                Storage::disk('public')->delete($loja->logo);
+            }
+            $data['logo'] = $this->uploadImagem($request, 'logo');
+        }
+
+        $loja->update($data);
 
         $request->session()->flash('mensagemAmarela', 'Os dados da loja foram atualizados com sucesso');
         return redirect()->route('lojas.index');
@@ -93,5 +98,14 @@ class LojaController extends Controller
         $request->session()->flash('mensagemVermelha', 'A loja foi removida com sucesso');
 
         return redirect()->route('lojas.index');
+    }
+
+    public function uploadImagem(Request $request)
+    {
+        $imagem = $request->file('logo');
+
+        $uploadImagem = $imagem->store('logo', 'public');
+
+        return $uploadImagem;
     }
 }

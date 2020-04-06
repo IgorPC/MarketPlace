@@ -10,8 +10,8 @@
         @csrf
         <div class="form-group">
             <label>Nome da Categoria</label>
-            <input class="form-control @error('nomeLoja') is-invalid @enderror" type="text" name="nomeCategoria" value="{{old('nomeCategoria')}}">
-            @error('nomeCategoria')
+            <input class="form-control @error('nome') is-invalid @enderror" type="text" name="nome" value="{{old('nome')}}">
+            @error('nome')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -26,11 +26,6 @@
                 {{$message}}
             </div>
             @enderror
-        </div>
-
-        <div class="form-group">
-            <label>Slug</label>
-            <input class="form-control" type="text" name="slug">
         </div>
 
         <div>

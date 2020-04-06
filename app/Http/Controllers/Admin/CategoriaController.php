@@ -36,11 +36,9 @@ class CategoriaController extends Controller
 
     public function store(CategoriaRequest $request)
     {
-        $this->categoria->create([
-            'nome' => $request->nomeCategoria,
-            'descricao' => $request->descricao,
-            'slug' => $request->slug
-        ]);
+        $data = $request->all();
+
+        $this->categoria->create($data);
 
         $request->session()->flash('mensagemVerde', 'A categoria foi cadastrada com sucesso');
         return redirect()->route('categorias.index');
@@ -61,12 +59,9 @@ class CategoriaController extends Controller
     public function update(CategoriaRequest $request, $id)
     {
         $categoria = $this->categoria->findOrFail($id);
+        $data = $request->all();
 
-        $categoria->update([
-            'nome' => $request->nomeCategoria,
-            'descricao' => $request->descricao,
-            'slug' => $request->slug
-        ]);
+        $categoria->update($data);
 
         $request->session()->flash('mensagemAmarela', 'A categoria foi atualizada com sucesso');
         return redirect()->route('categorias.index');

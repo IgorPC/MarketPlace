@@ -23,6 +23,7 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         $userLoja = auth()->user()->loja;
+
         $produtos = $userLoja->produtos()->paginate(8);
 
         //Mensagens de aviso personalizadas
@@ -42,16 +43,16 @@ class ProdutoController extends Controller
     public function store(ProdutoRequest $request)
     {
         $loja = auth()->user()->loja;
+        $data = $request->all();
 
-        $produto = $loja->produtos()->create([
-            'nome' => $request->nomeProduto,
-            'descricao' => $request->body,
-            'body' => $request->descricao,
-            'preco'=> $request->preco,
-            'slug' => $request->slug
-        ]);
+        $produto = $loja->produtos()->create($data);
 
         $produto->categoria()->sync($request->categorias);
+
+        if($request->hasFile('fotos')) {
+            $imagens = $this->uploadImagem($request, 'imagem');
+            $produto->fotos()->createMany($imagens);
+        }
 
         $request->session()->flash('mensagemVerde', 'O produto foi cadastrado com sucesso');
         return redirect()->route('produto.index');
@@ -73,16 +74,16 @@ class ProdutoController extends Controller
     public function update(ProdutoRequest $request, $id)
     {
         $produto = $this->produto->find($id);
+        $data = $request->all();
 
-        $produto->update([
-            'nome' => $request->nomeProduto,
-            'descricao' => $request->body,
-            'body' => $request->descricao,
-            'preco'=> $request->preco,
-            'slug' => $request->slug
-        ]);
+        $produto->update($data);
 
         $produto->categoria()->sync($request->categorias);
+
+        if($request->hasFile('fotos')) {
+            $imagens = $this->uploadImagem($request, 'imagem');
+            $produto->fotos()->createMany($imagens);
+        }
 
         $request->session()->flash('mensagemAmarela', 'O produto foi atualizado com sucesso');
         return redirect()->route('produto.index');
@@ -96,5 +97,18 @@ class ProdutoController extends Controller
 
         $request->session()->flash('mensagemVermelha', 'O produto foi removido com sucesso');
         return redirect()->route('produto.index');
+    }
+
+    public function uploadImagem(Request $request, $colunaImagem = null)
+    {
+        $imagens = $request->file('fotos');
+
+        $uploadImagems = [];
+
+        foreach ($imagens as $imagem) {
+                $uploadImagems[] = [$colunaImagem => $imagem->store('produtos', 'public')];
+        }
+
+        return $uploadImagems;
     }
 }
