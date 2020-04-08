@@ -40,7 +40,7 @@
 
     <div class="form-group">
         <label>Logo:</label>
-        <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+        <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror"  style="height: 20%">
         @error('logo')
         <div class="invalid-feedback">
             {{$message}}
@@ -59,7 +59,7 @@
     </div>
 
     <div>
-        <button type="submit" class="btn btn-lg btn-success">Salvar</button>
+        <button type="submit" class="btn btn-lg btn-success">Cadastrar Loja</button>
     </div>
 </form>
 @endsection

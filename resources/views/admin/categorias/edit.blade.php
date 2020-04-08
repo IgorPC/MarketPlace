@@ -5,32 +5,39 @@
 @endsection
 
 @section('conteudo')
-    <h1>Atualizar categoria</h1>
+    <h1 class="mt-4">Atualizar categoria</h1>
     <form method="POST" action="{{route('categorias.update', ['categoria' => $categoria->id])}}">
         @method('PUT')
         @csrf
-        <div class="form-group">
-            <label>Nome da Categoria</label>
-            <input class="form-control @error('nome') is-invalid @enderror" value="{{$categoria->nome}}" type="text" name="nome">
-            @error('nome')
-            <div class="invalid-feedback">
-                {{$message}}
-            </div>
-            @enderror
-        </div>
 
-        <div class="form-group">
-            <label>Descrição</label>
-            <input class="form-control @error('descricao') is-invalid @enderror" value="{{$categoria->descricao}}" type="text" name="descricao">
-            @error('descricao')
-            <div class="invalid-feedback">
-                {{$message}}
+        <div class="form-group mt-4">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Nome</strong></span>
+                </div>
+                <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$categoria->nome}}">
+                @error('nome')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
             </div>
-            @enderror
-        </div>
 
-        <div>
-            <button type="submit" class="btn btn-lg btn-success">Salvar</button>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Descrição</strong></span>
+                </div>
+                <input type="text" name="descricao" class="form-control @error('descricao') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$categoria->descricao}}">
+                @error('descricao')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-lg btn-warning">Atualizar Categoria</button>
+            </div>
         </div>
     </form>
 @endsection

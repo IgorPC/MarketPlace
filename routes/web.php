@@ -14,9 +14,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//HOME
 Route::get('/', 'HomeController@index')->name('home');
 
+//Carrinho
+Route::get('/single/{slug}', 'HomeController@single')->name('single');
+Route::get('/carrinho/', 'CarrinhoController@index')->name('carrinho.index');
+Route::post('/carrinho/add', 'CarrinhoController@add')->name('carrinho.add');
+Route::get('/carrinho/remover/{slug}', 'CarrinhoController@remover')->name('carrinho.remover');
+Route::get('/carrinho/cancelar', 'CarrinhoController@cancelar')->name('carrinho.cancelar');
+
+//Checkout
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+
+//Administrativo
 Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function (){
 
     Route::resource('lojas', 'LojaController');
@@ -28,5 +39,6 @@ Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function 
     Route::post('fotos/remover/', 'ProdutoFotoController@removerFoto')->name('removerFoto');
 });
 
+//Autenticação
 Auth::routes();
 

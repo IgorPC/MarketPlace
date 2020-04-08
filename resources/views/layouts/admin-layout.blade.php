@@ -15,9 +15,32 @@
     <!-- FIM BOOTSTRAP -->
 </head>
 <body>
-
+<!--<div class="fixed-top">-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><strong>MarketPlace</strong></a>
+        <a class="navbar-brand" href="{{route('home')}}"><strong>MarketPlace</strong></a>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        @guest()
+                <ul class="navbar-nav ml-auto">
+                    <div class="form-inline my-2 my-lg-0">
+                        <span class="mr-4">
+                            <a class="@if(session()->get('carrinho'))btn btn-warning @else btn btn-secondary @endif" href="{{route('carrinho.index')}}">
+                                <i class="fas fa-shopping-cart"></i>
+                                @if(session()->has('carrinho'))
+                                    <span> | {{array_sum(array_column(session()->get('carrinho'), 'quantidade'))}}</span>
+                                @endif</a>
+                        </span>
+                    </div>
+                    <li class="nav-item @if(request()->is('login*')) active @endif">
+                        <a class="nav-link" href="{{route('login')}}"><strong>Logar</strong><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item @if(request()->is('register*')) active @endif">
+                        <a class="nav-link" href="{{route('register')}}"><strong>Registrar</strong><span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+        @endguest
         @auth()
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -33,6 +56,13 @@
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <span class="mr-4">
+                    <a class="@if(session()->get('carrinho'))btn btn-primary @else btn btn-secondary @endif" href="{{route('carrinho.index')}}">
+                        <i class="fas fa-shopping-cart"></i>
+                        @if(session()->has('carrinho'))
+                            <span> | {{array_sum(array_column(session()->get('carrinho'), 'quantidade'))}}</span>
+                        @endif</a>
+                </span>
+                <span class="mr-4">
                     <button type="button" class="btn btn-warning" id="teste" data-toggle="modal" data-target="#exampleModal">
                       <i class="fas fa-user mr-1"></i> <strong>{{auth()->user()->name}}</strong>
                     </button>
@@ -47,18 +77,62 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <!-- BODY DO MODAL -->
                             <div class="modal-body">
-                                <p>Nome: <span id="mostrarUsuario"><strong>{{auth()->user()->name}}</strong></span></p>
-                                <p>Email: <strong>{{auth()->user()->email}}</strong></p>
-                                <p>Telefone/Celular: <strong></strong></p>
-                                <p>Endereço: <strong></strong></p>
-                                <p>CPF/CNPJ: <strong></strong></p>
+                                <span id="labelNome"><p>Nome: <strong>{{auth()->user()->name}}</strong></p></span>
+                                <!-- IMPUT DE EDICAO -->
+                                <div class="input-group input-group-sm mb-3" hidden id="inputNome">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{auth()->user()->name}}">
+                                </div>
+                                <!-- FIM IMPUT DE EDICAO -->
+                                <span id="labelEmail"><p>Email: <strong>{{auth()->user()->email}}</strong></p></span>
+                                <!-- IMPUT DE EDICAO -->
+                                <div class="input-group input-group-sm mb-3" hidden id="inputEmail">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{auth()->user()->email}}">
+                                </div>
+                                <!-- FIM IMPUT DE EDICAO -->
+                                <span id="labelCelular"><p>Celular: <strong>##############</strong></p></span>
+                                <!-- IMPUT DE EDICAO -->
+                                <div class="input-group input-group-sm mb-3" hidden id="inputCelular">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Telefone/Celular</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
+                                </div>
+                                <!-- FIM IMPUT DE EDICAO -->
+                                <span id="labelEndereco"><p>Endereço: <strong>##############</strong></p></span>
+                                <!-- IMPUT DE EDICAO -->
+                                <div class="input-group input-group-sm mb-3" hidden id="inputEndereco">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Endereço</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
+                                </div>
+                                <!-- FIM IMPUT DE EDICAO -->
+                                <span id="labelDoc"><p>CPF/CNPJ: <strong>##############</strong></p></span>
+                                <!-- IMPUT DE EDICAO -->
+                                <div class="input-group input-group-sm mb-3" hidden id="inputDoc">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">CPF/CNPJ</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
+                                </div>
+                                <!-- FIM IMPUT DE EDICAO -->
                             </div>
+                            <!-- FIM BODY MODAL -->
+                            <!-- FOOTER DO MODAL -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-warning disabled"><i class="fas fa-pen"></i> Editar</button>
+                                <button type="button" onclick="mostrarEdicao()" class="btn btn-warning"><i class="fas fa-pen"></i> Editar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="button" class="btn btn-primary">Salvar Alterações</button>
                             </div>
+                            <!-- FIM FOOTER MODAL -->
                         </div>
                     </div>
                 </div>
@@ -71,9 +145,49 @@
             @endauth
         </div>
     </nav>
-
-    <div class="container">
+<!--</div>-->
+    <div class="container" style="margin-top: 1%">
         @yield('conteudo')
     </div>
+
+    <script>
+        function mostrarEdicao()
+        {
+            const nomeLabel = document.getElementById('labelNome');
+            const nomeInput = document.getElementById('inputNome');
+            const emailLabel = document.getElementById('labelEmail');
+            const emailInput = document.getElementById('inputEmail');
+            const labelCelular = document.getElementById('labelCelular');
+            const inputCelular = document.getElementById('inputCelular');
+            const enderecoLabel = document.getElementById('labelEndereco');
+            const inputEndereco = document.getElementById('inputEndereco');
+            const labelDoc = document.getElementById('labelDoc');
+            const inputDoc = document.getElementById('inputDoc');
+
+            if(!nomeLabel.hasAttribute('hidden')){
+                nomeLabel.hidden = true;
+                nomeInput.removeAttribute('hidden');
+                emailLabel.hidden = true;
+                emailInput.removeAttribute('hidden');
+                labelCelular.hidden = true;
+                inputCelular.removeAttribute('hidden');
+                enderecoLabel.hidden = true;
+                inputEndereco.removeAttribute('hidden');
+                labelDoc.hidden = true;
+                inputDoc.removeAttribute('hidden');
+            }else{
+                nomeInput.hidden = true;
+                nomeLabel.removeAttribute('hidden');
+                emailInput.hidden = true;
+                emailLabel.removeAttribute('hidden');
+                inputCelular.hidden = true;
+                labelCelular.removeAttribute('hidden');
+                inputEndereco.hidden = true;
+                enderecoLabel.removeAttribute('hidden');
+                inputDoc.hidden = true;
+                labelDoc.removeAttribute('hidden');
+            }
+        }
+    </script>
 </body>
 </html>

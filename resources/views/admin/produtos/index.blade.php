@@ -6,14 +6,14 @@
 
 @section('conteudo')
 
-    <a href="{{route('produto.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Produto</a>
+    <a href="{{route('produto.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Produto <i class="fas fa-plus"></i></a>
 
     <!-- MENSAGENS PERSONALIZADAS -->
     @include('layouts.mensagens.mensagemVerde')
     @include('layouts.mensagens.mensagemAmarela')
     @include('layouts.mensagens.mensagemVermelha')
 
-    <table class="table table-striped">
+    <table class="table table-striped mt-2">
         <thead>
             <th>ID</th>
             <th>NOME</th>
