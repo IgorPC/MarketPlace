@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Loja;
 use App\Produto;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        $produtos = $this->produtos->limit(9)->orderBy('id', 'desc')->get();
-        return view('welcome', compact('produtos'));
+        $produtos = $this->produtos->limit(6)->orderBy('id', 'desc')->get();
+        $lojas = Loja::limit(3)->orderBy('id', 'desc')->get();
+        return view('welcome', compact('produtos', 'lojas'));
     }
 
     public function single($slug)

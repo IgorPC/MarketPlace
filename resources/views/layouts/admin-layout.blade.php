@@ -13,15 +13,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- FIM BOOTSTRAP -->
+    @yield('stylesheets')
 </head>
 <body>
 <!--<div class="fixed-top">-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{route('home')}}"><strong>MarketPlace</strong></a>
+        <!-- Collapse filtros -->
+        <p>
+            <a class="nav-item btn btn-success btn-sm mt-3" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2"><strong>FILTROS</strong><i class="fas fa-filter"></i></a>
+        </p>
+        <!-- BOTAO collapse filtros -->
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
         @guest()
                 <ul class="navbar-nav ml-auto">
                     <div class="form-inline my-2 my-lg-0">
@@ -60,7 +66,8 @@
                         <i class="fas fa-shopping-cart"></i>
                         @if(session()->has('carrinho'))
                             <span> | {{array_sum(array_column(session()->get('carrinho'), 'quantidade'))}}</span>
-                        @endif</a>
+                        @endif
+                    </a>
                 </span>
                 <span class="mr-4">
                     <button type="button" class="btn btn-warning" id="teste" data-toggle="modal" data-target="#exampleModal">
@@ -146,10 +153,34 @@
         </div>
     </nav>
 <!--</div>-->
-    <div class="container" style="margin-top: 1%">
+<!-- COLLAPSE DOS FILTROS -->
+    <div class="container" style="margin-top: 1%;margin-bottom: 5%">
+        <div class="row">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                       <h4>Categorias</h4>
+                        <hr>
+                        <ul class="list-group list-group-flush">
+                        @foreach($FilterCategorias as $fCategoria)
+                                <li class="list-group-item"><a href="#" style="text-decoration: none; color:black">{{$fCategoria->nome}}</a></li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body">
+                        Tipos
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM COLLAPSE DOS FILTROS -->
         @yield('conteudo')
     </div>
-
+    @yield('script')
     <script>
         function mostrarEdicao()
         {

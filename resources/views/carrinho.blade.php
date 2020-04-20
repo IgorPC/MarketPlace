@@ -51,7 +51,7 @@
                 <hr>
                 <div class="col-md-12">
                     <a href="{{route('checkout.index')}}" class="btn btn-lg btn-success float-right">Concluir Compra</a>
-                    <a href="{{route('carrinho.cancelar')}}" class="btn btn-lg btn-danger float-left">Cancelar Compra</a>
+                    <a href="{{route('carrinho.cancelar')}}" class="btn btn-lg btn-danger float-left">Limpar Carrinho</a>
                 </div>
             @else
                 @include('layouts.mensagens.mensagemVermelha')

@@ -10,7 +10,7 @@
         @csrf
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default"><strong>Nome</strong></span>
+                <span class="input-group-text" style="padding-right: 47px;" id="inputGroup-sizing-default"><strong>Nome</strong></span>
             </div>
             <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('nome')}}">
             @error('nome')
@@ -22,7 +22,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default"><strong>Conteudo</strong></span>
+                <span class="input-group-text" style="padding-right: 19px;" id="inputGroup-sizing-default"><strong>Conteudo</strong></span>
             </div>
             <input type="text" name="body" class="form-control @error('body') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('body')}}">
             @error('body')
@@ -34,7 +34,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default"><strong>Descrição</strong></span>
+                <span class="input-group-text" style="padding-right: 19px;" id="inputGroup-sizing-default"><strong>Descrição</strong></span>
             </div>
             <input type="text" name="descricao" class="form-control @error('descricao') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('descricao')}}">
             @error('descricao')
@@ -46,7 +46,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default"><strong>Preço</strong></span>
+                <span class="input-group-text" style="padding-right: 49px;" id="inputGroup-sizing-default"><strong>Preço</strong></span>
             </div>
             <input type="text" name="preco" class="form-control @error('preco') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('preco')}}">
             @error('preco')

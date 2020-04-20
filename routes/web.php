@@ -26,6 +26,8 @@ Route::get('/carrinho/cancelar', 'CarrinhoController@cancelar')->name('carrinho.
 
 //Checkout
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::post('/checkout/proccess', 'CheckoutController@proccess')->name('checkout.proccess');
+Route::get('/checkout/obrigado', 'CheckoutController@obrigado')->name('checkout.obrigado');
 
 //Administrativo
 Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function (){

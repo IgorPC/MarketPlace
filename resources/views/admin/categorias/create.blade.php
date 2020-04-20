@@ -11,7 +11,7 @@
         <div class="form-group mt-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Nome</strong></span>
+                    <span class="input-group-text" style="padding-right: 38px;" id="inputGroup-sizing-default"><strong>Nome</strong></span>
                 </div>
                 <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 @error('nome')

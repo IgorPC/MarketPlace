@@ -12,7 +12,7 @@
         <div class="form-group mt-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Nome</strong></span>
+                    <span class="input-group-text" style="padding-right: 40px;" id="inputGroup-sizing-default"><strong>Nome</strong></span>
                 </div>
                 <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->nome}}">
                 @error('nome')
@@ -36,7 +36,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Celular</strong></span>
+                    <span class="input-group-text" style="padding-right: 32px;" id="inputGroup-sizing-default"><strong>Celular</strong></span>
                 </div>
                 <input type="text" name="celular" class="form-control @error('celular') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->celular}}">
                 @error('celular')
@@ -48,7 +48,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default"><strong>Telefone</strong></span>
+                    <span class="input-group-text" style="padding-right: 20px;" id="inputGroup-sizing-default"><strong>Telefone</strong></span>
                 </div>
                 <input type="text" name="telefone" class="form-control @error('telefone') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->telefone}}">
                 @error('telefone')

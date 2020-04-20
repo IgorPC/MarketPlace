@@ -29,4 +29,9 @@ class Loja extends Model
     {
         return $this->hasMany(Produto::class);
     }
+
+    public function ordens()
+    {
+        return $this->hasMany(OrdemUsuarios::class);
+    }
 }
