@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <h3 class="card-title">{{$loja->nome}}</h3>
                             <p class="card-text">{{$loja->descricao}}</p>
-                            <a href="#" class="btn btn-success">Ver Mais</a>
+                            <a href="{{route('loja.index', ['slug' => $loja->slug])}}" class="btn btn-success">Ver Mais</a>
                         </div>
                 </div>
             </div>

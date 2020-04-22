@@ -163,16 +163,9 @@
                         <hr>
                         <ul class="list-group list-group-flush">
                         @foreach($FilterCategorias as $fCategoria)
-                                <li class="list-group-item"><a href="#" style="text-decoration: none; color:black">{{$fCategoria->nome}}</a></li>
+                                <li class="list-group-item"><a href="{{route('categoria.index', ['slug' => $fCategoria->slug])}}" style="text-decoration: none; color:black">{{$fCategoria->nome}}</a></li>
                         @endforeach
                         </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample2">
-                    <div class="card card-body">
-                        Tipos
                     </div>
                 </div>
             </div>

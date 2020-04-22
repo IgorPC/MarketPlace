@@ -31,7 +31,7 @@
                 </p>
 
                 <h3>R$ {{number_format($produto->preco, '2', ',','.')}}</h3>
-                <span>Loja: <a href="#">{{$produto->loja->nome}}</a></span>
+                <span>Loja: <a href="{{route('loja.index', ['slug' => $produto->loja->slug])}}">{{$produto->loja->nome}}</a></span>
             </div>
             <hr>
             <div class="produto-add mt-2 col-md-12">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Produto;
 use Illuminate\Http\Request;
 
 class CarrinhoController extends Controller
@@ -17,7 +18,17 @@ class CarrinhoController extends Controller
 
     public function add(Request $request)
     {
-        $produto = $request->get('produto');
+        $produtoData = $request->get('produto');
+
+        $produto = Produto::whereSlug($produtoData['slug']);
+
+        if(!$produto->count()){
+            return redirect()->route('home');
+        }
+
+        $produto = $produto->first(['nome', 'preco'])->toArray();
+
+        $produto = array_merge($produtoData, $produto);
 
         if(session()->has('carrinho')){
 

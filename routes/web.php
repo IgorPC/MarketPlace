@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 //HOME
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/categoria/{slug}', 'CategoriaController@index')->name('categoria.index');
+Route::get('/loja/{slug}', 'LojaController@index')->name('loja.index');
 
 //Carrinho
 Route::get('/single/{slug}', 'HomeController@single')->name('single');
