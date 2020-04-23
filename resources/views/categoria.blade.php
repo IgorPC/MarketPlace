@@ -5,6 +5,7 @@
 @endsection
 
 @section('conteudo')
+    <br>
     <div class="col-md-12">
         <h2>{{$categoria->nome}}</h2>
         <hr>

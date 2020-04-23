@@ -18,15 +18,11 @@
 <body>
 <!--<div class="fixed-top">-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{route('home')}}"><strong>MarketPlace</strong></a>
-        <!-- Collapse filtros -->
-        <p>
-            <a class="nav-item btn btn-success btn-sm mt-3" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2"><strong>FILTROS</strong><i class="fas fa-filter"></i></a>
-        </p>
-        <!-- BOTAO collapse filtros -->
+        <a class="navbar-brand" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><strong style="font-size: 25px">MarketPlace</strong></a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        @auth()<span class="ml-4 mb-2" style="font-size: 35px; color: white">|</span>@endauth
         <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
         @guest()
                 <ul class="navbar-nav ml-auto">
@@ -50,14 +46,15 @@
         @auth()
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item @if(request()->is('admin/lojas*')) active @endif">
-                    <a class="nav-link" href="{{route('lojas.index')}}"><strong>Lojas</strong><span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(request()->is('admin/produto*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(request()->is('admin/categorias*')) active @endif" href="{{route('categorias.index')}}"><strong>Categorias</strong></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown @if(request()->is('admin*')) active @endif" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Minha loja <i class="fas fa-store"></i></strong>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @if(request()->is('admin/lojas*')) active @endif" href="{{route('lojas.index')}}"><strong>Lojas</strong></a>
+                        <a class="dropdown-item @if(request()->is('admin/produto*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
+                        <a class="dropdown-item @if(request()->is('admin/categorias*')) active @endif" href="{{route('categorias.index')}}"><strong>Categorias</strong></a>
+                    </div>
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
@@ -87,57 +84,16 @@
                             <!-- BODY DO MODAL -->
                             <div class="modal-body">
                                 <span id="labelNome"><p>Nome: <strong>{{auth()->user()->name}}</strong></p></span>
-                                <!-- IMPUT DE EDICAO -->
-                                <div class="input-group input-group-sm mb-3" hidden id="inputNome">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{auth()->user()->name}}">
-                                </div>
-                                <!-- FIM IMPUT DE EDICAO -->
                                 <span id="labelEmail"><p>Email: <strong>{{auth()->user()->email}}</strong></p></span>
-                                <!-- IMPUT DE EDICAO -->
-                                <div class="input-group input-group-sm mb-3" hidden id="inputEmail">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{auth()->user()->email}}">
-                                </div>
-                                <!-- FIM IMPUT DE EDICAO -->
                                 <span id="labelCelular"><p>Celular: <strong>##############</strong></p></span>
-                                <!-- IMPUT DE EDICAO -->
-                                <div class="input-group input-group-sm mb-3" hidden id="inputCelular">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm">Telefone/Celular</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
-                                </div>
-                                <!-- FIM IMPUT DE EDICAO -->
                                 <span id="labelEndereco"><p>Endereço: <strong>##############</strong></p></span>
-                                <!-- IMPUT DE EDICAO -->
-                                <div class="input-group input-group-sm mb-3" hidden id="inputEndereco">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm">Endereço</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
-                                </div>
-                                <!-- FIM IMPUT DE EDICAO -->
                                 <span id="labelDoc"><p>CPF/CNPJ: <strong>##############</strong></p></span>
-                                <!-- IMPUT DE EDICAO -->
-                                <div class="input-group input-group-sm mb-3" hidden id="inputDoc">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm">CPF/CNPJ</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="#">
-                                </div>
-                                <!-- FIM IMPUT DE EDICAO -->
                             </div>
                             <!-- FIM BODY MODAL -->
                             <!-- FOOTER DO MODAL -->
                             <div class="modal-footer">
-                                <button type="button" onclick="mostrarEdicao()" class="btn btn-warning"><i class="fas fa-pen"></i> Editar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary">Salvar Alterações</button>
+                                <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i> Editar</button>
                             </div>
                             <!-- FIM FOOTER MODAL -->
                         </div>
@@ -153,65 +109,48 @@
         </div>
     </nav>
 <!--</div>-->
-<!-- COLLAPSE DOS FILTROS -->
+<!-- COLLAPSE MENU -->
     <div class="container" style="margin-top: 1%;margin-bottom: 5%">
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <a  href="{{route('home')}}" class="btn btn-primary btn-bg mt-3 ml-2" style="width: 90%; color: black;text-decoration: none"><strong>Produtos </strong><i class="fab fa-product-hunt"></i></a>
+                        <a class="btn btn-success btn-bg mt-3 ml-2" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2" style="width: 90%;color: black;text-decoration: none"><strong>Categorias </strong><i class="fas fa-sort"></i></a>
+                    </div>
+                    <div class="col-8 mt-3">
+                        <h3>Pesquisar:</h3>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" style="width: 85%" type="search" placeholder=" Digite o nome do produto!" aria-label="Search">
+                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM COLLAPSE MENU -->
+        <!-- COLLAPSE DOS CATEGORIAS -->
         <div class="row">
             <div class="col">
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card card-body">
-                       <h4>Categorias</h4>
+                        <div class="d-flex justify-content-between">
+                            <h4>Categorias</h4>
+                            <span class="btn btn-danger btn-bg" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2"><strong>X</strong></span>
+                        </div>
                         <hr>
                         <ul class="list-group list-group-flush">
-                        @foreach($FilterCategorias as $fCategoria)
+                            @foreach($FilterCategorias as $fCategoria)
                                 <li class="list-group-item"><a href="{{route('categoria.index', ['slug' => $fCategoria->slug])}}" style="text-decoration: none; color:black">{{$fCategoria->nome}}</a></li>
-                        @endforeach
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FIM COLLAPSE DOS FILTROS -->
+        <!-- FIM COLLAPSE DOS CATEGORIAS -->
         @yield('conteudo')
     </div>
     @yield('script')
-    <script>
-        function mostrarEdicao()
-        {
-            const nomeLabel = document.getElementById('labelNome');
-            const nomeInput = document.getElementById('inputNome');
-            const emailLabel = document.getElementById('labelEmail');
-            const emailInput = document.getElementById('inputEmail');
-            const labelCelular = document.getElementById('labelCelular');
-            const inputCelular = document.getElementById('inputCelular');
-            const enderecoLabel = document.getElementById('labelEndereco');
-            const inputEndereco = document.getElementById('inputEndereco');
-            const labelDoc = document.getElementById('labelDoc');
-            const inputDoc = document.getElementById('inputDoc');
-
-            if(!nomeLabel.hasAttribute('hidden')){
-                nomeLabel.hidden = true;
-                nomeInput.removeAttribute('hidden');
-                emailLabel.hidden = true;
-                emailInput.removeAttribute('hidden');
-                labelCelular.hidden = true;
-                inputCelular.removeAttribute('hidden');
-                enderecoLabel.hidden = true;
-                inputEndereco.removeAttribute('hidden');
-                labelDoc.hidden = true;
-                inputDoc.removeAttribute('hidden');
-            }else{
-                nomeInput.hidden = true;
-                nomeLabel.removeAttribute('hidden');
-                emailInput.hidden = true;
-                emailLabel.removeAttribute('hidden');
-                inputCelular.hidden = true;
-                labelCelular.removeAttribute('hidden');
-                inputEndereco.hidden = true;
-                enderecoLabel.removeAttribute('hidden');
-                inputDoc.hidden = true;
-                labelDoc.removeAttribute('hidden');
-            }
-        }
-    </script>
 </body>
 </html>

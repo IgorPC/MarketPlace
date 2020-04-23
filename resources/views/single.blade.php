@@ -5,7 +5,7 @@
 @endsection
 
 @section('conteudo')
-
+    <br>
     @include('layouts.mensagens.mensagemVerde')
 
     <div class="row">

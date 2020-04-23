@@ -5,7 +5,7 @@
 @endsection
 
 @section('conteudo')
-
+    <br>
     <div class="row mt-4">
         <div class="col-12">
             <h2>Carrinho de compras</h2>

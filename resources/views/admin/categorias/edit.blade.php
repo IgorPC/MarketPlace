@@ -5,7 +5,8 @@
 @endsection
 
 @section('conteudo')
-    <h1 class="mt-4">Atualizar categoria</h1>
+    <br>
+    <h1>Atualizar categoria</h1>
     <form method="POST" action="{{route('categorias.update', ['categoria' => $categoria->id])}}">
         @method('PUT')
         @csrf

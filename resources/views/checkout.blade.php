@@ -9,6 +9,7 @@
 @endsection
 
 @section('conteudo')
+    <br>
     <div class="container">
         <h1>Pagamento: </h1>
         <hr>
