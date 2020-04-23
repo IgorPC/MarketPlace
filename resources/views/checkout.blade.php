@@ -123,7 +123,7 @@
                 dataType: 'json',
                 success: function (res) {
                     toastr.success(res.data.message, 'Sucesso')
-                    window.location.href = '{{route('checkout.obrigado')}}?ordem=' + res.data.ordem;
+                    //window.location.href = '{{route('checkout.obrigado')}}?ordem=' + res.data.ordem;
                 }
             });
         }

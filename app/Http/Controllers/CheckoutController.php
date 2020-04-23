@@ -33,10 +33,11 @@ class CheckoutController extends Controller
         try {
             $dataPost = $request->all();
             $usuario = auth()->user();
-            $cardItens = session()->get('carrinho');
+            $cartItems = session()->get('carrinho');
+            $lojas = array_unique(array_column($cartItems, 'loja_id'));
             $referencia = 'XPTO';
 
-            $creditCard = new CreditCard($cardItens, $usuario, $dataPost, $referencia);
+            $creditCard = new CreditCard($cartItems, $usuario, $dataPost, $referencia);
             $result = $creditCard->fazerPagamento();
 
             //var_dump($result);
@@ -44,18 +45,19 @@ class CheckoutController extends Controller
                 'referencia' => $referencia,
                 'pagseguro_code' => $result->getCode(),
                 'pagseguro_status' => $result->getStatus(),
-                'items' => serialize($cardItens),
+                'items' => serialize($cartItems),
                 'loja_id' => 47
             ];
+            $userOrder = $usuario->ordens()->create($ordemUsuario);
+            $userOrder->lojas()->sync($lojas);
 
-            $usuario->ordens()->create($ordemUsuario);
-            session()->forget('carrinho');
-            session()->forget('pagseguro_session_code');
+            //session()->forget('carrinho');
+            //session()->forget('pagseguro_session_code');
 
             return response()->json([
                 'data' => [
                     'status' => true,
-                    'message' => 'Pedido concluido com sucesso!'
+                    'message' => $ordemUsuario
                 ]
             ]);
         }catch (\Exception $e){

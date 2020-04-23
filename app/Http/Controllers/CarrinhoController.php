@@ -26,8 +26,7 @@ class CarrinhoController extends Controller
             return redirect()->route('home');
         }
 
-        $produto = $produto->first(['nome', 'preco'])->toArray();
-
+        $produto = $produto->first(['nome', 'preco', 'loja_id'])->toArray();
         $produto = array_merge($produtoData, $produto);
 
         if(session()->has('carrinho')){
@@ -45,7 +44,6 @@ class CarrinhoController extends Controller
             $produtos[] = $produto;
             session()->put('carrinho', $produtos);
         }
-
         $mensagemVerde = session()->flash('mensagemVerde', 'Produto adicionado ao carrinho');
         return redirect()->back();
     }

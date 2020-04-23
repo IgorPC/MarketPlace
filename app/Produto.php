@@ -8,7 +8,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Produto extends Model
 {
-    protected $fillable = ['nome', 'descricao', 'body', 'preco','slug'];
+    protected $fillable = ['nome', 'descricao', 'body', 'preco','slug', 'loja_id'];
 
     use HasSlug;
 

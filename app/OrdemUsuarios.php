@@ -18,4 +18,9 @@ class OrdemUsuarios extends Model
     {
         return $this->belongsTo(Loja::class);
     }
+
+    public function lojas()
+    {
+        return $this->belongsToMany(Loja::class, 'loja_ordem', 'ordem_id');
+    }
 }
