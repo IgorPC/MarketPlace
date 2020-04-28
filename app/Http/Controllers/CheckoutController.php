@@ -40,7 +40,6 @@ class CheckoutController extends Controller
             $creditCard = new CreditCard($cartItems, $usuario, $dataPost, $referencia);
             $result = $creditCard->fazerPagamento();
 
-            //var_dump($result);
             $ordemUsuario = [
                 'referencia' => $referencia,
                 'pagseguro_code' => $result->getCode(),
@@ -51,8 +50,8 @@ class CheckoutController extends Controller
             $userOrder = $usuario->ordens()->create($ordemUsuario);
             $userOrder->lojas()->sync($lojas);
 
-            //session()->forget('carrinho');
-            //session()->forget('pagseguro_session_code');
+            session()->forget('carrinho');
+            session()->forget('pagseguro_session_code');
 
             return response()->json([
                 'data' => [
@@ -60,6 +59,7 @@ class CheckoutController extends Controller
                     'message' => $ordemUsuario
                 ]
             ]);
+
         }catch (\Exception $e){
             return response()->json([
                 'data' => [
@@ -73,7 +73,8 @@ class CheckoutController extends Controller
 
     public function obrigado()
     {
-        return view('obrigado');
+        $ordem = session()->get('ordem');
+        return view('obrigado', compact('ordem'));
     }
 
     private function criarSessaoPagSeguro()

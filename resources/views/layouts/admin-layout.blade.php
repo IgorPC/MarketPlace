@@ -51,9 +51,11 @@
                         <strong>Minha loja <i class="fas fa-store"></i></strong>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item @if(request()->is('admin/lojas*')) active @endif" href="{{route('lojas.index')}}"><strong>Lojas</strong></a>
-                        <a class="dropdown-item @if(request()->is('admin/produto*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('produto.index')}}"><strong>Produtos</strong></a>
-                        <a class="dropdown-item @if(request()->is('admin/categorias*')) active @endif" href="{{route('categorias.index')}}"><strong>Categorias</strong></a>
+                        <a class="dropdown-item @if(request()->is('admin/lojas*')) active @endif" href="{{route('lojas.index')}}"><strong>Ver Loja</strong></a>
+                        <a class="dropdown-item @if(request()->is('admin/produto*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('produto.index')}}"><strong>Meus Produtos</strong></a>
+                        <a class="dropdown-item @if(request()->is('admin/categorias*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('categorias.index')}}"><strong>Categorias</strong></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item @if(request()->is('admin/ordens*')) active @endif @if(auth()->user()->loja()->count() != 1) disabled @endif" href="{{route('ordens')}}"><strong>Minhas Vendas</strong></a>
                     </div>
                 </li>
             </ul>
@@ -92,6 +94,7 @@
                             <!-- FIM BODY MODAL -->
                             <!-- FOOTER DO MODAL -->
                             <div class="modal-footer">
+                                <a class="btn btn-success" href="{{route('ordens.pedidos')}}">Meus Pedidos</a>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i> Editar</button>
                             </div>

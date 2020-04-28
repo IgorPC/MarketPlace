@@ -22,7 +22,7 @@ class CreateUserOrderTable extends Migration
             $table->string('pagseguro_code');
             $table->integer('pagseguro_status');
 
-            $table->string('items');
+            $table->longText('items');
 
             $table->timestamps();
 

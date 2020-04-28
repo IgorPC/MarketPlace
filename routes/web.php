@@ -31,6 +31,9 @@ Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout/proccess', 'CheckoutController@proccess')->name('checkout.proccess');
 Route::get('/checkout/obrigado', 'CheckoutController@obrigado')->name('checkout.obrigado');
 
+//Ordens do Usuario
+Route::get('/ordens/meus-pedidos', 'UsuarioController@index')->middleware('auth')->name('ordens.pedidos');
+
 //Administrativo
 Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function (){
 
@@ -41,6 +44,8 @@ Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function 
     Route::resource('categorias', 'CategoriaController');
 
     Route::post('fotos/remover/', 'ProdutoFotoController@removerFoto')->name('removerFoto');
+
+    Route::get('ordens/minhas-vendas', 'OrdemController@index')->name('ordens');
 });
 
 //Autenticação
