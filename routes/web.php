@@ -46,8 +46,25 @@ Route::prefix('/admin')->middleware('auth')->namespace('Admin')->group(function 
     Route::post('fotos/remover/', 'ProdutoFotoController@removerFoto')->name('removerFoto');
 
     Route::get('ordens/minhas-vendas', 'OrdemController@index')->name('ordens');
+
+    Route::get('notificacoes', 'NotificacaoController@notificacao')->name('admin.notificacao');
+    Route::get('notificacoes/lerTodas', 'NotificacaoController@lerTodas')->name('admin.notificacao.lerTodas');
+    Route::get('notificacoes/ler/{notificacao}', 'NotificacaoController@lerNotificacao')->name('admin.notificacao.lerNotificacao');
 });
 
 //Autenticação
 Auth::routes();
+
+/*Route::get('not', function (){
+   $user = User::find(37);
+   $user->notify(new \App\Notifications\LojaRecebeNovaOrdem());
+
+    //$notificacoes = $user->notifications->first();
+
+    //$notificacoes->markAsRead;
+
+    $lojas = [47, 25];
+
+   //return $user->notifications;
+});*/
 

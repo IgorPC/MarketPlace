@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Loja;
 use App\Payment\Pagseguro\CreditCard;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\exception_for;
@@ -47,8 +48,11 @@ class CheckoutController extends Controller
                 'items' => serialize($cartItems),
                 'loja_id' => 47
             ];
+
             $userOrder = $usuario->ordens()->create($ordemUsuario);
             $userOrder->lojas()->sync($lojas);
+
+            $loja = (new Loja())->notificarDonoLojas($lojas);
 
             session()->forget('carrinho');
             session()->forget('pagseguro_session_code');

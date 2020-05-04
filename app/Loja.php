@@ -34,4 +34,13 @@ class Loja extends Model
     {
         return $this->belongsToMany(OrdemUsuarios::class, 'loja_ordem', 'loja_id', 'ordem_id');
     }
+
+    public function notificarDonoLojas($lojaID)
+    {
+        $lojas = Loja::whereIn('id', $lojaID)->get();
+
+        $lojas->map(function($loja){
+            return $loja->user;
+        })->each->notify(new \App\Notifications\LojaRecebeNovaOrdem());
+    }
 }

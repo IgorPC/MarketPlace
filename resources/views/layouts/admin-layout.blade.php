@@ -60,6 +60,11 @@
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
+                @if(auth()->user()->unreadnotifications()->count() != 0)
+                <span class="mr-2">
+                    <a href="{{route('admin.notificacao')}}" class="btn btn-danger"><strong>{{auth()->user()->unreadnotifications()->count()}} |</strong> <i class="fas fa-envelope"></i></a>
+                </span>
+                @endif
                 <span class="mr-4">
                     <a class="@if(session()->get('carrinho'))btn btn-primary @else btn btn-secondary @endif" href="{{route('carrinho.index')}}">
                         <i class="fas fa-shopping-cart"></i>
