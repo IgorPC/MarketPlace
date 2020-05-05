@@ -22,6 +22,10 @@ class ProdutoController extends Controller
 
     public function index(Request $request)
     {
+        if(!auth()->user()->loja()->exists()){
+            return redirect()->back();
+        }
+
         $userLoja = auth()->user()->loja;
 
         $produtos = $userLoja->produtos()->paginate(8);
@@ -44,6 +48,8 @@ class ProdutoController extends Controller
     {
         $loja = auth()->user()->loja;
         $data = $request->all();
+
+        $data['preco'] = formatarPrecoParaBanco($data['preco']);
 
         $produto = $loja->produtos()->create($data);
 

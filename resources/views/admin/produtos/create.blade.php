@@ -48,7 +48,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" style="padding-right: 49px;" id="inputGroup-sizing-default"><strong>Preço</strong></span>
             </div>
-            <input type="text" name="preco" class="form-control @error('preco') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('preco')}}">
+            <input type="text" name="preco" id="preco" class="form-control @error('preco') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('preco')}}">
             @error('preco')
             <div class="invalid-feedback">
                 {{$message}}
@@ -82,3 +82,12 @@
         </div>
     </form>
 @endsection
+
+@section('script')
+    <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js"></script>
+    <script>
+        $('#preco').maskMoney({prefix: 'R$', allowNegative: false, thousands: '.', decimal: ','});
+    </script>
+@endsection
+
+

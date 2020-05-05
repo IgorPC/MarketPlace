@@ -22,7 +22,7 @@ class CarrinhoController extends Controller
 
         $produto = Produto::whereSlug($produtoData['slug']);
 
-        if(!$produto->count()){
+        if(!$produto->count() || $produtoData['quantidade'] <= 0){
             return redirect()->route('home');
         }
 

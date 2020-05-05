@@ -97,7 +97,7 @@ class LojaController extends Controller
 
         $request->session()->flash('mensagemVermelha', 'A loja foi removida com sucesso');
 
-        return redirect()->route('lojas.index');
+        return redirect()->route('home');
     }
 
     public function uploadImagem(Request $request)

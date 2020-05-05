@@ -11,14 +11,26 @@
     <div class="row">
         <div class="col-6">
             @if($produto->fotos->count())
-            <img src="{{asset('storage/' . $produto->fotos->first()->imagem)}}" class="card-img-top" alt="...">
-            <div class="row">
-                @foreach($produto->fotos as $foto)
-                    <div class="col-4 mt-1">
-                        <img src="{{asset('storage/' . $foto->imagem)}}" class="img-fluid" alt="...">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{asset('storage/' . $produto->fotos->first()->imagem)}}" class="d-block w-100" alt="Responsive image">
+                        </div>
+                        @foreach($produto->fotos as $foto)
+                        <div class="carousel-item">
+                            <img src="{{asset('storage/' . $foto->imagem)}}" class="d-block w-100" alt="Responsive image">
+                        </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             @else
                 <img src="{{asset('assets/img/no-photo.jpg')}}" class="card-img-top" alt="...">
             @endif

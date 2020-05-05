@@ -12,7 +12,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <!-- FIM BOOTSTRAP -->
+    <!-- FONT AWSOME -->
     <script src="https://kit.fontawesome.com/35505cabf9.js" crossorigin="anonymous"></script>
+    <!-- FIM FONT AWSOME -->
     @yield('stylesheets')
 </head>
 <body>
@@ -45,6 +47,15 @@
         @endguest
         @auth()
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @if(!auth()->user()->loja()->exists())
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="{{route('lojas.create')}}">
+                            <strong>Crie sua loja <i class="fas fa-plus"></i></strong>
+                        </a>
+                    </li>
+                </ul>
+            @else
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown @if(request()->is('admin*')) active @endif" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,6 +70,7 @@
                     </div>
                 </li>
             </ul>
+            @endif
             <div class="form-inline my-2 my-lg-0">
                 @if(auth()->user()->unreadnotifications()->count() != 0)
                 <span class="mr-2">

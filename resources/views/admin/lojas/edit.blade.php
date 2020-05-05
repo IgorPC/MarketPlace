@@ -38,7 +38,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" style="padding-right: 32px;" id="inputGroup-sizing-default"><strong>Celular</strong></span>
                 </div>
-                <input type="text" name="celular" class="form-control @error('celular') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->celular}}">
+                <input type="text" name="celular" id="celular" class="form-control @error('celular') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->celular}}">
                 @error('celular')
                 <div class="invalid-feedback">
                     {{$message}}
@@ -61,7 +61,11 @@
             <div class="col-5 text-center">
                 <div class="form-group">
                     <label>Logo: </label>
-                    <img class="img-fluid" src="{{asset('storage/' . $loja->logo)}}">
+                    @if($loja->logo)
+                        <img class="img-fluid" src="{{asset('storage/' . $loja->logo)}}">
+                    @else
+                        <img class="img-fluid" src="https://via.placeholder.com/600X300.png?text=LOJA%20SEM%20LOGO">
+                    @endif
                 </div>
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ControleDeAcesso;
 use App\Http\Middleware\UsuarioTemLojaMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
