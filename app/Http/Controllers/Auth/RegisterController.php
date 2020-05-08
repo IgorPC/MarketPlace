@@ -72,11 +72,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        Mail::to($data['email'])->send(New UsuarioRegistradoMail($user));
     }
 
     protected function registered(Request $request, $user)
     {
-        Mail::to('igorpc.tv@gmail.com')->send(New UsuarioRegistradoMail($user));
         if(session()->has('carrinho')){
             return redirect()->route('checkout.index');
         }

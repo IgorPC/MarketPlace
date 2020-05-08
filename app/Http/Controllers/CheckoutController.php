@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Loja;
+use App\OrdemUsuarios;
 use App\Payment\Pagseguro\CreditCard;
+use App\Payment\Pagseguro\Notificacao;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 use function GuzzleHttp\Promise\exception_for;
 
 class CheckoutController extends Controller
@@ -16,6 +19,10 @@ class CheckoutController extends Controller
         }
         if(!session()->get('carrinho')){
             return redirect()->route('home');
+        }
+
+        if(auth()->user()->verify_cod == 0){
+            return view('erro');
         }
 
         $this->criarSessaoPagSeguro();
@@ -36,7 +43,7 @@ class CheckoutController extends Controller
             $usuario = auth()->user();
             $cartItems = session()->get('carrinho');
             $lojas = array_unique(array_column($cartItems, 'loja_id'));
-            $referencia = 'XPTO';
+            $referencia = Uuid::uuid4();
 
             $creditCard = new CreditCard($cartItems, $usuario, $dataPost, $referencia);
             $result = $creditCard->fazerPagamento();
@@ -46,7 +53,6 @@ class CheckoutController extends Controller
                 'pagseguro_code' => $result->getCode(),
                 'pagseguro_status' => $result->getStatus(),
                 'items' => serialize($cartItems),
-                'loja_id' => 47
             ];
 
             $userOrder = $usuario->ordens()->create($ordemUsuario);
@@ -60,7 +66,8 @@ class CheckoutController extends Controller
             return response()->json([
                 'data' => [
                     'status' => true,
-                    'message' => $ordemUsuario
+                    'message' => $ordemUsuario,
+                    'ordem' => $referencia
                 ]
             ]);
 
@@ -68,7 +75,7 @@ class CheckoutController extends Controller
             return response()->json([
                 'data' => [
                     'status' => false,
-                    'message' => 'Erro ao processar pedido!',
+                    'message' => $e->getMessage(),
                     'ordem' => $referencia
                 ]
             ], 401);
@@ -79,6 +86,24 @@ class CheckoutController extends Controller
     {
         $ordem = session()->get('ordem');
         return view('obrigado', compact('ordem'));
+    }
+
+    public function notificacao()
+    {
+        try{
+            $notificacao = new Notificacao();
+
+            $notificacao = $notificacao->getTransaction();
+            $referencia = base64_decode($notificacao->getReference());
+            $userOrder = OrdemUsuarios::whereReferencia($referencia);
+            $userOrder->update([
+                'pagseguro_status' => $notificacao->getStatus()
+            ]);
+
+            return response()->json([], 204);
+        }catch (\Exception $e){
+            return response()->json([$e->getMessage()], 500);
+        }
     }
 
     private function criarSessaoPagSeguro()

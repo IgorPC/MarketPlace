@@ -40,10 +40,11 @@ class LojaRecebeNovaOrdem extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = route('ordens');
+
         return (new MailMessage)
                     ->subject('Novo pedido')
-                    ->line('Você recebeu um novo pedido na loja')
-                    ->action('Ver Pedido', route('ordens'));
+                    ->markdown('mail.novo-pedido', ['url' => $url]);
     }
 
     /**

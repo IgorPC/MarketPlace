@@ -90,36 +90,7 @@
                       <i class="fas fa-user mr-1"></i> <strong>{{auth()->user()->name}}</strong>
                     </button>
                  </span>
-                <!-- MODAL DADOS DO USUARIO -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Dados do Usuario</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- BODY DO MODAL -->
-                            <div class="modal-body">
-                                <span id="labelNome"><p>Nome: <strong>{{auth()->user()->name}}</strong></p></span>
-                                <span id="labelEmail"><p>Email: <strong>{{auth()->user()->email}}</strong></p></span>
-                                <span id="labelCelular"><p>Celular: <strong>##############</strong></p></span>
-                                <span id="labelEndereco"><p>Endereço: <strong>##############</strong></p></span>
-                                <span id="labelDoc"><p>CPF/CNPJ: <strong>##############</strong></p></span>
-                            </div>
-                            <!-- FIM BODY MODAL -->
-                            <!-- FOOTER DO MODAL -->
-                            <div class="modal-footer">
-                                <a class="btn btn-success" href="{{route('ordens.pedidos')}}">Meus Pedidos</a>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i> Editar</button>
-                            </div>
-                            <!-- FIM FOOTER MODAL -->
-                        </div>
-                    </div>
-                </div>
-                <!-- FIM MODAL DADOS DO USUARIO -->
+                @include('modal')
                 <form method="POST" action="{{route('logout')}}">
                     @csrf
                     <button type="submit" class="btn btn-outline-danger my-2 my-sm-0"><strong>Sair</strong></button>
@@ -129,46 +100,8 @@
         </div>
     </nav>
 <!--</div>-->
-<!-- COLLAPSE MENU -->
     <div class="container" style="margin-top: 1%;margin-bottom: 5%">
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <div class="row mb-2">
-                    <div class="col-4">
-                        <a  href="{{route('home')}}" class="btn btn-primary btn-bg mt-3 ml-2" style="width: 90%; color: black;text-decoration: none"><strong>Produtos </strong><i class="fab fa-product-hunt"></i></a>
-                        <a class="btn btn-success btn-bg mt-3 ml-2" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2" style="width: 90%;color: black;text-decoration: none"><strong>Categorias </strong><i class="fas fa-sort"></i></a>
-                    </div>
-                    <div class="col-8 mt-3">
-                        <h3>Pesquisar:</h3>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" style="width: 85%" type="search" placeholder=" Digite o nome do produto!" aria-label="Search">
-                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIM COLLAPSE MENU -->
-        <!-- COLLAPSE DOS CATEGORIAS -->
-        <div class="row">
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4>Categorias</h4>
-                            <span class="btn btn-danger btn-bg" data-toggle="collapse" data-target=".multi-collapse" aria-controls="multiCollapseExample1 multiCollapseExample2"><strong>X</strong></span>
-                        </div>
-                        <hr>
-                        <ul class="list-group list-group-flush">
-                            @foreach($FilterCategorias as $fCategoria)
-                                <li class="list-group-item"><a href="{{route('categoria.index', ['slug' => $fCategoria->slug])}}" style="text-decoration: none; color:black">{{$fCategoria->nome}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIM COLLAPSE DOS CATEGORIAS -->
+        @include('collpse-menu')
         @yield('conteudo')
     </div>
     @yield('script')

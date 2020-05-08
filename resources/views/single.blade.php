@@ -39,7 +39,7 @@
             <div>
                 <h2>{{$produto->nome}}</h2>
                 <p>
-                    {{$produto->descricao}}
+                    {{$produto->body}}
                 </p>
 
                 <h3>R$ {{number_format($produto->preco, '2', ',','.')}}</h3>
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col-12">
             <hr>
-            {{$produto->body}}
+            {{$produto->descricao}}
         </div>
     </div>
 @endsection

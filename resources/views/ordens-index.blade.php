@@ -34,6 +34,10 @@
                                             R$ {{number_format($item['preco'], 2, ',', '.')}} |
                                             Total: R$: {{number_format($item['quantidade'] * $item['preco']), 2, '.', ','}}
                                         </li>
+                                        <label class="mt-2">Status:</label>@if($ordem->pagseguro_status == 3)<span style="color: green"><strong>PAGA</strong></span>
+                                                                                                @elseif($ordem->pagseguro_status == 1)<span style="color: yellow"><strong>AGUARDANDO PAGAMENTO</strong></span>
+                                                                                                @elseif($ordem->pagseguro_status == 7)<span style="color: red"><strong>CANCELADA</strong></span>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>

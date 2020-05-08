@@ -18,7 +18,7 @@
                     <img src="https://via.placeholder.com/600X420.png?text=PRODUTO%20SEM%20IMAGEM" class="card-img-top" alt="...">
                 @endif
                 <div class="card-body" style="height: 220px">
-                    <h3 class="card-title">{{$produto->nome}}</h3>
+                    <h5 class="card-title">{{$produto->nome}}</h5>
                     <p class="card-text">{{$produto->descricao}}</p>
                     <h5>R$ {{number_format($produto->preco, '2', ',','.')}}</h5>
                     <a href="{{route('single', ['slug' => $produto->slug])}}" class="btn btn-success">Ver Mais</a>
@@ -42,7 +42,7 @@
                         <img src="https://via.placeholder.com/600X420.png?text=LOJA%20SEM%20LOGO" class="card-img-top" alt="Responsive image">
                     @endif
                         <div class="card-body" style="height: 150px">
-                            <h3 class="card-title">{{$loja->nome}}</h3>
+                            <h5 class="card-title">{{$loja->nome}}</h5>
                             <p class="card-text">{{$loja->descricao}}</p>
                             <a href="{{route('loja.index', ['slug' => $loja->slug])}}" class="btn btn-success">Ver Mais</a>
                         </div>

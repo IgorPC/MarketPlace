@@ -25,14 +25,14 @@ class CreditCard
 
         $creditCard->setReceiverEmail(env('PAGSEGURO_EMAIL'));
 
-        $creditCard->setReference($this->referencia);
+        $creditCard->setReference(base64_encode($this->referencia));
 
         $creditCard->setCurrency("BRL");
 
         foreach ($this->items as $cardItem) {
 
             $creditCard->addItems()->withParameters(
-                $this->referencia,
+                $cardItem['id'],
                 $cardItem['nome'],
                 $cardItem['quantidade'],
                 $cardItem['preco']
@@ -59,25 +59,25 @@ class CreditCard
         $creditCard->setSender()->setIp('127.0.0.0');
 
         $creditCard->setShipping()->setAddress()->withParameters(
-            'Av. Brig. Faria Lima',
-            '1384',
-            'Jardim Paulistano',
-            '01452002',
-            'São Paulo',
-            'SP',
-            'BRA',
-            'apto. 114'
+            $usuario->street,
+            $usuario->number,
+            $usuario->district,
+            $usuario->postalcode,
+            $usuario->city,
+            $usuario->state,
+            $usuario->country,
+            $usuario->complement
         );
 
         $creditCard->setBilling()->setAddress()->withParameters(
-            'Av. Brig. Faria Lima',
-            '1384',
-            'Jardim Paulistano',
-            '01452002',
-            'São Paulo',
-            'SP',
-            'BRA',
-            'apto. 114'
+            $usuario->street,
+            $usuario->number,
+            $usuario->district,
+            $usuario->postalcode,
+            $usuario->city,
+            $usuario->state,
+            $usuario->country,
+            $usuario->complement
         );
 
         $creditCard->setToken($this->cardinfo['card_token']);

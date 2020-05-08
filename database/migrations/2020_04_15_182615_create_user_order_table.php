@@ -16,7 +16,7 @@ class CreateUserOrderTable extends Migration
         Schema::create('ordem_usuarios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('loja_id');
+            //$table->unsignedBigInteger('loja_id');
 
             $table->string('referencia');
             $table->string('pagseguro_code');
@@ -27,7 +27,7 @@ class CreateUserOrderTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('loja_id')->references('id')->on('lojas');
+            //$table->foreign('loja_id')->references('id')->on('lojas');
         });
     }
 

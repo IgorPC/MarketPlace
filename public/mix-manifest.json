@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/pagseguro_funcoes.js": "/js/pagseguro_funcoes.js",
+    "/js/pagseguro_eventos.js": "/js/pagseguro_eventos.js"
 }
