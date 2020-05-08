@@ -5,11 +5,7 @@
 @endsection
 
 @section('conteudo')
-
-    @if($numLoja != 1)
-        <a href="{{route('lojas.create')}}" class="btn btn-lg btn-success mb-2 mt-3">Cadastrar Loja <i class="fas fa-plus"></i></a>
-    @endif
-
+    <br>
     <!-- MENSAGENS PERSONALIZADAS -->
     @include('layouts.mensagens.mensagemVerde')
     @include('layouts.mensagens.mensagemAmarela')

@@ -11,7 +11,7 @@
             @if($loja->logo)
                 <img src="{{asset('storage/' . $loja->logo)}}" class="card-img-top" alt="">
             @else
-                <img src="{{asset('assets/img/loja-sem-logo.png')}}" class="card-img-top" alt="...">
+                <img src="https://via.placeholder.com/600X420.png?text=LOJA%20SEM%20LOGO" class="card-img-top" alt="Responsive image">
             @endif
         </div>
         <div class="col-8">
@@ -20,7 +20,7 @@
             <h4>Contatos: </h4>
             <p><i class="fas fa-phone-square-alt"></i> Telefone: {{$loja->telefone}}</p>
             <p><i class="fab fa-whatsapp-square"></i> Whatsapp: {{$loja->celular}}</p>
-            <p><i class="fas fa-envelope-square"></i> ################################ </p>
+            <p><i class="fas fa-envelope-square"></i> Email: {{$loja->email}} </p>
         </div>
     </div>
     <hr>

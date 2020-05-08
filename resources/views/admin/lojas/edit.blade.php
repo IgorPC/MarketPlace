@@ -36,6 +36,18 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <span class="input-group-text" style="padding-right: 42px;" id="inputGroup-sizing-default"><strong>Email</strong></span>
+                </div>
+                <input type="text" name="email" id="celular" class="form-control @error('email') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->email}}">
+                @error('email')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <span class="input-group-text" style="padding-right: 32px;" id="inputGroup-sizing-default"><strong>Celular</strong></span>
                 </div>
                 <input type="text" name="celular" id="celular" class="form-control @error('celular') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{$loja->celular}}">

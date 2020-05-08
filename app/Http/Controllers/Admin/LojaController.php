@@ -26,6 +26,9 @@ class LojaController extends Controller
     public function index(Request $request)
     {
         $loja = auth()->user()->loja()->get();
+        if($loja->count() == 0){
+            return redirect()->route('home');
+        }
         $numLoja = auth()->user()->loja()->count();
 
         //Mensagens de aviso personalizadas

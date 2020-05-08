@@ -19,6 +19,11 @@ class CategoriaController extends Controller
 
     public function index(Request $request)
     {
+        $loja = auth()->user()->loja()->get();
+        if($loja->count() == 0){
+            return redirect()->route('home');
+        }
+
         $categorias = $this->categoria->paginate(8);
 
         //Mensagens de aviso personalizadas

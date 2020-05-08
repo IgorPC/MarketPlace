@@ -9,7 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 class Loja extends Model
 {
 
-    protected $fillable = ['nome', 'descricao', 'telefone', 'celular','slug', 'logo'];
+    protected $fillable = ['nome', 'descricao', 'telefone', 'celular','slug', 'logo', 'email'];
 
     use HasSlug;
 

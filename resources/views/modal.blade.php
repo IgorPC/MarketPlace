@@ -12,9 +12,18 @@
             <div class="modal-body">
                 <span id="labelNome"><p>Nome: <strong>{{auth()->user()->name}}</strong></p></span>
                 <span id="labelEmail"><p>Email: <strong>{{auth()->user()->email}}</strong></p></span>
-                <span id="labelCelular"><p>Celular: <strong>{{auth()->user()->celphone}}</strong></p></span>
-                <span id="labelEndereco"><p>Endereço: <strong>{{auth()->user()->street}}, {{auth()->user()->number}}, {{auth()->user()->city}} - {{auth()->user()->state}}</strong></p></span>
-                <span id="labelDoc"><p>CPF/CNPJ: <strong>{{auth()->user()->doc}}</strong></p></span>
+                @if(auth()->user()->verify_cod == 0)
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">Seus dados estão incompletos!</h4>
+                        <p>Clique no botão abaixo para finalizar seu cadastro</p>
+                        <hr>
+                        <p class="mb-0 text-center"><a class="btn btn-success" href="{{route('usuario.editar')}}"><i class="fas fa-user"></i> Clique aqui para editar os dados <i class="fas fa-user"></i></a></p>
+                    </div>
+                @else
+                    <span id="labelCelular"><p>Celular: <strong>{{auth()->user()->celphone}}</strong></p></span>
+                    <span id="labelEndereco"><p>Endereço: <strong>{{auth()->user()->street}}, {{auth()->user()->number}}, {{auth()->user()->city}} - {{auth()->user()->state}}</strong></p></span>
+                    <span id="labelDoc"><p>CPF/CNPJ: <strong>{{auth()->user()->doc}}</strong></p></span>
+                @endif
             </div>
             <!-- FIM BODY MODAL -->
             <!-- FOOTER DO MODAL -->

@@ -77,6 +77,10 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+        if(auth()->user()->verify_cod == 0){
+            return redirect()->route('home');
+        }
+
         if(session()->has('carrinho')){
             return redirect()->route('checkout.index');
         }

@@ -28,7 +28,8 @@ class LojaRequest extends FormRequest
             'descricao' => 'required|min:10',
             'celular' => 'required',
             'telefone' => 'required',
-            'logo' => 'image'
+            'logo' => 'image',
+            'email' => 'required'
         ];
     }
 
